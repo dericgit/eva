@@ -1,0 +1,42 @@
+<project name="eva.build" default="build" basedir=".">
+    <description>Component Build File</description>
+
+	<property name="built_js" value="build/eva.js" />
+	<property name="min_js" value="build/eva.min.js" />
+	<property name="built_css" value="build/eva.css" />
+	<property name="min_css" value="build/eva.min.css" />
+
+    <target name="concat_js">
+		<echo message="concat files" />
+        <concat destfile="${built_js}" encoding="utf-8" outputencoding="utf-8">
+            <path path="src/version.js"/>
+            <path path="lib/simpleyui.js"/>
+            <path path="src/menu/menu.js"/>
+        </concat>
+    </target>
+	
+    <target name="concat_css">
+        <concat destfile="${built_css}" encoding="utf-8" outputencoding="utf-8">
+        </concat>
+    </target>
+
+	<target name="min">
+		<echo message="minify EVA" />
+		<apply executable="java" parallel="false" verbose="true" dest=".">
+			<fileset dir=".">
+				<include name="${built_js}" />
+			</fileset>
+			<arg line="-jar" />
+			<arg path="tools/yuicompressor-2.4.2.jar" />
+			<arg value="${built_js}" />
+			<arg value="-o" />
+			<targetfile />
+			<arg value="${min_js}" />
+			<mapper type="glob" from="${built_js}" to="${min_js}" />
+		</apply>
+    </target>
+
+    <target name="build" depends="concat_js,min">
+    </target>
+</project>
+
