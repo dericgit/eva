@@ -1,12 +1,13 @@
 
-/**
+/*!
  * menu.js
- * @require yui.js
+ * @require simpleyui.js
  */
-var EVA = EVA || YUI(),A = EVA;
 
-A.add('menu',function(A){
-	S.log('Menu start');
-},'',{
-	require:['node']	
+
+Y.add('menu',function(Y){
+	Y.log('Menu start');
+	Y.Menu = {};
+},'3.2.0',{
+	require:['node']
 });
